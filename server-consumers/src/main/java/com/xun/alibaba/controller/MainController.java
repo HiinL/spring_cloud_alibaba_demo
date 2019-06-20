@@ -1,9 +1,10 @@
 package com.xun.alibaba.controller;
 
+import com.xun.alibaba.service.MainService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -20,15 +21,36 @@ import org.springframework.web.client.RestTemplate;
 public class MainController {
 
     @Autowired
-    LoadBalancerClient loadBalancerClient;
+    RestTemplate restTemplate;
 
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
+    /**
+     * 使用 RestTemplate 调用服务
+     * @return
+     */
     @GetMapping("/test")
     public String test() {
-        // 通过spring cloud common中的负载均衡接口选取服务提供节点实现接口调用
-        ServiceInstance serviceInstance = loadBalancerClient.choose("server-provider");
-        String url = serviceInstance.getUri() + "/hello?name=" + "xun";
-        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://server-provider/hello?name=xun";
         String result = restTemplate.getForObject(url, String.class);
         return "Invoke : " + url + ", return : " + result;
     }
+
+    @Autowired
+    private MainService mainService;
+
+    /**
+     * 使用 Feign 调用服务
+     * @return
+     */
+    @GetMapping("/test1")
+    public String test1() {
+        String result = mainService.hello("xun");
+        return " return : " + result;
+    }
+
 }
