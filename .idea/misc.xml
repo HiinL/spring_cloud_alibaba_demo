@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/server-provider/pom.xml" />
         <option value="$PROJECT_DIR$/server-consumers/pom.xml" />
         <option value="$PROJECT_DIR$/config-client/pom.xml" />
+        <option value="$PROJECT_DIR$/sentinel-rate-limiting/pom.xml" />
       </list>
     </option>
   </component>

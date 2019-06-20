@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/config-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sentinel-rate-limiting" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-consumers" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/server-provider" charset="UTF-8" />
   </component>
